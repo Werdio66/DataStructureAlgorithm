@@ -1,4 +1,4 @@
-package com._520.Algorithm.student;
+package com._520.DataStructure.student;
 
 
 public class Student {

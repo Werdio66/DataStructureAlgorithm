@@ -1,4 +1,4 @@
-package com._520.Algorithm.list;
+package com._520.DataStructure.list;
 
 // 模拟LinkedList
 public class MyLinkedList<T> {

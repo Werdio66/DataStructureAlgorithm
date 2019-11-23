@@ -1,6 +1,6 @@
-package com._520.Algorithm.student;
+package com._520.DataStructure.student;
 
-import com._520.Algorithm.list.MyArrayList;
+import com._520.DataStructure.list.MyArrayList;
 
 public class StudentTest {
     public static void main(String[] args) {

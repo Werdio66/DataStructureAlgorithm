@@ -1,6 +1,6 @@
-package com._520.Algorithm.test;
+package com._520.DataStructure.test;
 
-import com._520.Algorithm.list.MyLinkedList;
+import com._520.DataStructure.list.MyLinkedList;
 
 public class TestLinkedList {
     public static void main(String[] args) {

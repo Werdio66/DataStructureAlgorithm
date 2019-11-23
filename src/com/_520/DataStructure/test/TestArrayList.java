@@ -1,9 +1,6 @@
-package com._520.Algorithm.test;
+package com._520.DataStructure.test;
 
-import com._520.Algorithm.list.MyArrayList;
-
-import java.util.ArrayList;
-import java.util.List;
+import com._520.DataStructure.list.MyArrayList;
 
 public class TestArrayList {
 
