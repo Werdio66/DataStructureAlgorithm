@@ -1,4 +1,4 @@
-package com._520.DataStructure.student;
+package com._520.DataStructure.collection.student;
 
 
 public class Student {

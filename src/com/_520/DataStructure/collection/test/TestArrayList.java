@@ -1,6 +1,6 @@
-package com._520.DataStructure.test;
+package com._520.DataStructure.collection.test;
 
-import com._520.DataStructure.list.MyArrayList;
+import com._520.DataStructure.collection.list.MyArrayList;
 
 public class TestArrayList {
 

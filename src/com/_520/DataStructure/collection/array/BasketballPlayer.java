@@ -1,4 +1,4 @@
-package com._520.DataStructure.array;
+package com._520.DataStructure.collection.array;
 
 // 安排篮球员上场
 public class BasketballPlayer {
