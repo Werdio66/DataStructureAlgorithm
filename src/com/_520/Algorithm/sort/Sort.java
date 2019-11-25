@@ -138,10 +138,10 @@ public class Sort {
 
         while (l < r){
 
-            // 当左边的值小于等于基准值时，向右移动
+            // 当左边的值小于基准值时，向右移动
             while (arr[l] < pivot)
                 l++;
-            // 当右边的值大于等于基准值时，向左移动
+            // 当右边的值大于基准值时，向左移动
             while (arr[r] > pivot)
                 r--;
 
@@ -165,5 +165,66 @@ public class Sort {
         // 右递归
         if (right > l)
             quickSort(arr,l,right);
+    }
+
+    /**
+     *  合并排序
+     * @param arr           排序数组
+     * @param left          分解的左索引
+     * @param right         分解的右索引
+     * @param temp          中间数组
+     */
+    public static void mergeSort(int[] arr, int left, int right, int[] temp){
+        if (left < right){
+            int mid = (left + right) / 2;
+            // 递归左边
+            mergeSort(arr, left, mid, temp);
+            // 递归右边
+            mergeSort(arr, mid + 1, right, temp);
+            // 合并
+            merge(arr, left, mid, right, temp);
+        }
+    }
+    /**
+     *  合并
+     * @param arr           合并的数组
+     * @param left          左边的初始索引
+     * @param mid           右边的初始索引
+     * @param right         数组的最右边位置
+     * @param temp          中间数组
+     */
+    private static void merge(int[] arr, int left, int mid, int right, int[] temp){
+        int i = left;           // 左边索引
+        int j = mid + 1;        // 右边索引
+        int t = 0;              // 中间数组的索引
+
+        // 一边没有遍历完就一直执行
+        while (i <= mid && j <= right){
+
+            if (arr[i] <= arr[j]){ // 左边的小，把左边的给中间数组
+                temp[t] = arr[i];
+                i++;
+                t++;
+            }else { // 右边的小，把右边的给中间数组
+                temp[t] = arr[j];
+                t++;
+                j++;
+            }
+        }
+
+        // 如果左边的没有完，就把左边的都给中间数组
+        while (i <= mid)
+            temp[t++] = arr[i++];
+        // 如果右边的没有完，就把右边的都给中间数组
+        while (j <= right)
+            temp[t++] = arr[j++];
+
+        // 把temp数组中的数据拷回arr
+        t = 0;
+        int tempLeft = left;
+//        System.out.println("tempLeft = " + tempLeft + " right = " + right);
+        while (tempLeft <= right) {
+            arr[tempLeft++] = temp[t++];
+        }
     }
 }
