@@ -57,4 +57,28 @@ public class Sort {
         }
     }
 
+    public static void insertSort(int[] arr){
+
+        // 从第2个数开始插入
+        for (int i = 1; i < arr.length; i++) {
+            // 第二个数是要插入的数组
+            int insertValue = arr[i];
+            // 要插入位置数字的下标
+            int insertIndex = i - 1;
+            // 插入的下标必须大于等于0，插入的值要比前一个位置的值小
+            while (insertIndex >= 0 && insertValue < arr[insertIndex]) {
+                // 把这个大的数后移
+                arr[insertIndex + 1] = arr[insertIndex];
+                // 往前继续找
+                insertIndex--;
+            }
+
+            // 说明已经找到了对应的位置
+            arr[insertIndex + 1] = insertValue;
+
+//            System.out.println("第" + i + "轮");
+//            System.out.println(Arrays.toString(arr));
+        }
+    }
+
 }
