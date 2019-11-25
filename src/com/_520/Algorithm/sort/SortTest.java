@@ -10,6 +10,21 @@ public class SortTest {
     private static int[] array = new int[]{1,3,2,4,7,5,6,9,8,0};
 
     @Test
+    void testShell(){
+//        System.out.println("排序前");
+//        System.out.println(Arrays.toString(array));
+//        Sort.shellSort(array);
+//        System.out.println("排序后");
+//        System.out.println(Arrays.toString(array));
+        int[] arr = new int[100000];
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] = (int) (Math.random()*1000000);
+        }
+        long begin = System.currentTimeMillis();
+        Sort.shellSort(arr);       // 交换法：1200      移动位置：24
+        System.out.println("一共用了" + (System.currentTimeMillis() - begin) + "毫秒");
+    }
+    @Test
     void testInsert(){
 //        System.out.println("排序前");
 //        System.out.println(Arrays.toString(array));
@@ -21,7 +36,7 @@ public class SortTest {
             arr[i] = (int) (Math.random()*1000000);
         }
         long begin = System.currentTimeMillis();
-        Sort.insertSort(arr);       // 1200
+        Sort.insertSort(arr);       // 14848
         System.out.println("一共用了" + (System.currentTimeMillis() - begin) + "毫秒");
     }
 

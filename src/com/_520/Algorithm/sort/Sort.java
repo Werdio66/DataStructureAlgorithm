@@ -81,4 +81,54 @@ public class Sort {
         }
     }
 
+    /**
+     *  希尔排序    交换法
+     * @param arr   排序数组
+     */
+//    public static void shellSort(int[] arr){
+//        int count = 0;
+//        // 把数组分为gap组
+//        for (int gap = arr.length / 2; gap > 0; gap /= 2) {
+//            //
+//            for (int i = gap; i < arr.length; i++) {
+//                // 为每组插入排序，每次都和前面已插入的比较
+//                for (int j = i - gap; j >= 0; j -= gap) {
+//                    if (arr[j] > arr[j + gap])
+//                        swap(arr, j, j + gap);
+//                }
+//
+//
+//            }
+////            System.out.println("第" + (++count) + "轮");
+//////            System.out.println(Arrays.toString(arr));
+//        }
+//    }
+
+    public static void shellSort(int[] arr){
+//        int count = 0;
+        // 把数组分为gap组
+        for (int gap = arr.length / 2; gap > 0; gap /= 2) {
+            //
+            for (int i = gap; i < arr.length; i++) {
+                // 第二个数是要插入的数组
+                int insertValue = arr[i];
+                // 要插入位置数字的下标
+                int insertIndex = i;
+                // 后面的数小于前面的数时，移动位置
+                while (insertIndex - gap >= 0 && insertValue < arr[insertIndex - gap]){
+                    // 移动
+                    arr[insertIndex] = arr[insertIndex - gap];
+                    insertIndex -= gap;
+                }
+                // 找到了正确的位置
+                arr[insertIndex] = insertValue;
+
+
+
+            }
+//            System.out.println("第" + (++count) + "轮");
+//            System.out.println(Arrays.toString(arr));
+        }
+    }
+
 }
