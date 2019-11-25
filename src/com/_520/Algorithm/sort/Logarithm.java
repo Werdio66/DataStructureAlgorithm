@@ -39,7 +39,8 @@ public class Logarithm {
 //        Sort.bubbleSort(arr);             // true
 //        Sort.selectSort(arr);             // true
 //        Sort.insertSort(arr);             // true
-        Sort.shellSort(arr);
+//        Sort.shellSort(arr);              // true
+        Sort.quickSort(arr,0,arr.length - 1);
         // 挨个检查
         for (int i = 0; i < arr.length; i++) {
             if (arr[i] != copyArr[i])   // 有一个不相等，返回false

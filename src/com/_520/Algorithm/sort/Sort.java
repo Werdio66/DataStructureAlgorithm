@@ -131,4 +131,39 @@ public class Sort {
         }
     }
 
+    public static void quickSort(int[] arr, int left, int right){
+        int l = left;
+        int r = right;
+        int pivot = arr[(left + right) / 2];    // 基准值
+
+        while (l < r){
+
+            // 当左边的值小于等于基准值时，向右移动
+            while (arr[l] < pivot)
+                l++;
+            // 当右边的值大于等于基准值时，向左移动
+            while (arr[r] > pivot)
+                r--;
+
+            // 左边的已经小于等于基准值，右边的已经大于等于基准值
+            if (l > r)
+                break;
+            // 交换
+            swap(arr,l,r);
+            // 交换后左边的值等于基准值，继续向右移动
+            if (arr[l] == pivot)
+                l++;
+            // 交换后右边的值等于基准值，向左移动
+            if (arr[r] == pivot)
+                r--;
+//            System.out.println("第一轮");
+//            System.out.println(Arrays.toString(arr));
+        }
+        // 左递归
+        if (left < r)
+            quickSort(arr, left, r);
+        // 右递归
+        if (right > l)
+            quickSort(arr,l,right);
+    }
 }
