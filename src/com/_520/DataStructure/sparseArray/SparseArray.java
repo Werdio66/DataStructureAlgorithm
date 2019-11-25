@@ -20,6 +20,7 @@ public class SparseArray {
         }
     }
     public static void main(String[] args) {
+
         chessArray1[1][2] = 1;
         chessArray1[2][3] = 2;
         // 原始二维数组

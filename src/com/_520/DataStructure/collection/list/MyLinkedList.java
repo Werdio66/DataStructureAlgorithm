@@ -34,6 +34,7 @@ public class MyLinkedList<T> {
     public void addFirst(T t){
         linkFirst(t);
     }
+
     // 在尾部添加
     private void linkLast(T t) {
         Node<T> node = last;
@@ -47,7 +48,7 @@ public class MyLinkedList<T> {
         size++;
     }
 
-    // 在尾部添加
+    // 在头部添加
     private void linkFirst(T t) {
         Node<T> node = first;
         Node<T> newNode = new Node<>(first,null,t);
