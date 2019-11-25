@@ -35,4 +35,26 @@ public class Sort {
         }
     }
 
+    /*
+        选择排序
+     */
+    public static void selectSort(int[] arr){
+
+        for (int i = 0; i < arr.length - 1; i++) {
+            int index = i;          // 最小值下标
+            int value = arr[i];     // 最小值
+            for (int j = i + 1; j < arr.length; j++) {
+                if (value > arr[j]){    // 如果当前值不是最小值，就更新 index 和 value
+                    index = j;
+                    value = arr[j];
+                }
+            }
+            // 把最小值和 i 下标的数交换
+            arr[index] = arr[i];
+            arr[i] = value;
+//            System.out.println("第" + (i + 1) + "轮排序");
+//            System.out.println(Arrays.toString(arr));
+        }
+    }
+
 }

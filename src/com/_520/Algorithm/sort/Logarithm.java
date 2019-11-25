@@ -36,8 +36,8 @@ public class Logarithm {
         Arrays.sort(copyArr);
 
         // 使用自己写的排序对数组排序
-        Sort.bubbleSort(arr);
-
+//        Sort.bubbleSort(arr);             // true
+        Sort.selectSort(arr);               // true
         // 挨个检查
         for (int i = 0; i < arr.length; i++) {
             if (arr[i] != copyArr[i])   // 有一个不相等，返回false
