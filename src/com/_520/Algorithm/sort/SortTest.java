@@ -1,8 +1,6 @@
 package com._520.Algorithm.sort;
 
-
 import org.junit.jupiter.api.Test;
-
 import java.util.Arrays;
 
 public class SortTest {
@@ -23,20 +21,34 @@ public class SortTest {
         return arr;
     }
 
-    private static int[] array = new int[]{1,3,2,4,7,5,6,9,8,0};
+    private static int[] array = new int[]{4,5,8,2,7};
 
     @Test
-    void testQuick(){
+    void testMerge(){
 //        System.out.println("排序前");
 //        System.out.println(Arrays.toString(array));
-//        Sort.quickSort(array,0,array.length-1);
+//        int[] temp = new int[array.length];
+//        Sort.mergeSort(array,0,array.length - 1,temp);
 //        System.out.println("排序后");
 //        System.out.println(Arrays.toString(array));
 
-        int[] arr = getRandomArray(100000);
+        int[] arr = getRandomArray(10000000);
         long begin = System.currentTimeMillis();
-        Sort.quickSort(arr,0,arr.length-1);    //
+        Sort.mergeSort(arr,0,arr.length - 1,new int[arr.length]);   //   1750
         System.out.println("一共用了" + (System.currentTimeMillis() - begin) + "毫秒");
+    }
+    @Test
+    void testQuick(){
+        System.out.println("排序前");
+        System.out.println(Arrays.toString(array));
+        Sort.quickSort(array,0,array.length-1);
+        System.out.println("排序后");
+        System.out.println(Arrays.toString(array));
+
+//        int[] arr = getRandomArray(10000000);
+//        long begin = System.currentTimeMillis();
+//        Sort.quickSort(arr,0,arr.length-1);    //   1679
+//        System.out.println("一共用了" + (System.currentTimeMillis() - begin) + "毫秒");
     }
     @Test
     void testShell(){
@@ -46,9 +58,9 @@ public class SortTest {
 //        System.out.println("排序后");
 //        System.out.println(Arrays.toString(array));
 
-        int[] arr = getRandomArray(100000);
+        int[] arr = getRandomArray(10000000);
         long begin = System.currentTimeMillis();
-        Sort.shellSort(arr);       // 交换法：1200      移动位置：24
+        Sort.shellSort(arr);       // 3256
         System.out.println("一共用了" + (System.currentTimeMillis() - begin) + "毫秒");
     }
     @Test
