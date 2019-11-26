@@ -61,7 +61,7 @@ public class Sort {
 
         // 从第2个数开始插入
         for (int i = 1; i < arr.length; i++) {
-            // 第二个数是要插入的数组
+            // 第二个数是要插入的数字
             int insertValue = arr[i];
             // 要插入位置数字的下标
             int insertIndex = i - 1;
@@ -223,8 +223,64 @@ public class Sort {
         t = 0;
         int tempLeft = left;
 //        System.out.println("tempLeft = " + tempLeft + " right = " + right);
-        while (tempLeft <= right) {
+        while (tempLeft <= right)
             arr[tempLeft++] = temp[t++];
+    }
+
+    /**
+     *  基数排序：刚开始按个位从小到大排序，然后十位，百位···
+     *  以空间换时间  空间O（n^2）
+     * @param arr   排序数组
+     */
+    public static void radixSort(int[] arr){
+
+        int max = arr[0];
+        // 获取数组中最大的元素
+        for (int i = 1; i < arr.length; i++) {
+            if (arr[i] > max)
+                max = arr[i];
+        }
+        // 计算数组中最大元素的位数
+        int maxLength = (max + "").length();
+        // 定义十个桶，每个桶的大小是排序数组的长度
+        int[][] bucket = new int[10][arr.length];
+        // 记录每个桶中的有效长度
+        int[] bucketLength = new int[10];
+
+        //--------------- 将数据放入桶中 -----------------------
+        // 循环每一位数
+        for (int i = 0, n = 1; i < maxLength; i++, n *= 10) {
+            for (int j = 0; j < arr.length; j++) {
+                // 计算每位的数       第一次是个位
+                int digit = arr[j] / n % 10;
+                // 将arr[j] 加到对应桶（bucket[digit]）的对应位置上（bucketLength[digit]）
+                bucket[digit][bucketLength[digit]] = arr[j];
+                // 每个桶中加入一个数据就加一
+                bucketLength[digit]++;
+            }
+
+            //--------------- 将数据从桶中取出来 -----------------------
+            // 记录每个桶中数的下标
+            int index = 0;
+            // 遍历每个桶
+            for (int j = 0; j < bucket.length; j++) {
+                // 如果这个桶中有数据
+                if (bucketLength[j] != 0) {
+                    // 将桶中的数据放入原数组中
+                    for (int k = 0; k < bucketLength[j]; k++) {
+                        // 将第j的桶中的第 k 个数放入原数组
+                        arr[index++] = bucket[j][k];
+                    }
+                }
+
+                // 每一轮完后要把当前桶的长度置为 0，清空所有的桶
+                bucketLength[j] = 0;
+            }
+//            System.out.println("第" +(i + 1)+"次");
+//            System.out.println(Arrays.toString(arr));
+
         }
     }
+
+
 }
