@@ -10,7 +10,7 @@ public class BinarySerach {
 
     public static void main(String[] args) {
         int[] arr = {1,3,4,5,6,6,6,6,6,7,8,9};
-        System.out.println(binarySerach1(arr, 0, arr.length - 1, 66));
+        System.out.println(binarySerach1(arr, 0, arr.length - 1, 1));
         binarySerach2(arr,0,arr.length - 1,6).forEach(System.out::println);
     }
     /**
@@ -22,10 +22,11 @@ public class BinarySerach {
      * @param value         查找的值
      */
     private static int binarySerach1(int[] arr, int left, int right, int value) {
+        System.out.println("binarySerach1..");
         // 没有找到
         if (left > right)
             return -1;
-        int mid = (left + right) / 2;
+        int mid = left - (left - right) / 2;
         if (value > arr[mid])   // 在右边查找
             return binarySerach1(arr,mid + 1,right,value);
         else if (value < arr[mid])// 在左边查找
