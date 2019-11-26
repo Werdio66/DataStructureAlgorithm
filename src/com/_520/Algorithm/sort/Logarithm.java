@@ -41,7 +41,8 @@ public class Logarithm {
 //        Sort.insertSort(arr);             // true
 //        Sort.shellSort(arr);              // true
 //        Sort.quickSort(arr,0,arr.length - 1);
-        Sort.mergeSort(arr,0,arr.length - 1,new int[arr.length]);
+//        Sort.mergeSort(arr,0,arr.length - 1,new int[arr.length]);
+        Sort.radixSort(arr);
         // 挨个检查
         for (int i = 0; i < arr.length; i++) {
             if (arr[i] != copyArr[i])   // 有一个不相等，返回false
@@ -51,10 +52,18 @@ public class Logarithm {
         return true;
     }
 
+    // 随机创建10000个数组，每个数组有10000个值，判断排序是否正确
+    private static boolean isTrue(){
+        for (int i = 0; i < 10000; i++) {
+            if (!logarithm(getRandomArray(10000)))
+                return false;
+        }
+        return true;
+    }
     public static void main(String[] args) {
 
-
-        System.out.println(logarithm(getRandomArray(100000)));
+        System.out.println(isTrue());
+//        System.out.println(logarithm(getRandomArray(100000)));
 //        System.out.println(Arrays.toString(arr));
 
     }

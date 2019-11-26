@@ -21,8 +21,21 @@ public class SortTest {
         return arr;
     }
 
-    private static int[] array = new int[]{4,5,8,2,7};
+    private static int[] array = new int[]{46,566,8,22,79};
 
+    @Test
+    void testRadix(){
+//        System.out.println("排序前");
+//        System.out.println(Arrays.toString(array));
+//        Sort.radixSort(array);
+//        System.out.println("排序后");
+//        System.out.println(Arrays.toString(array));
+
+        int[] arr = getRandomArray(10000000);
+        long begin = System.currentTimeMillis();
+        Sort.radixSort(arr);        // 790      // 11 * 100000000 * 4 / 1024 / 1024/ 1024       4G内存
+        System.out.println("一共用了" + (System.currentTimeMillis() - begin) + "毫秒");
+    }
     @Test
     void testMerge(){
 //        System.out.println("排序前");
@@ -39,16 +52,16 @@ public class SortTest {
     }
     @Test
     void testQuick(){
-        System.out.println("排序前");
-        System.out.println(Arrays.toString(array));
-        Sort.quickSort(array,0,array.length-1);
-        System.out.println("排序后");
-        System.out.println(Arrays.toString(array));
+//        System.out.println("排序前");
+//        System.out.println(Arrays.toString(array));
+//        Sort.quickSort(array,0,array.length-1);
+//        System.out.println("排序后");
+//        System.out.println(Arrays.toString(array));
 
-//        int[] arr = getRandomArray(10000000);
-//        long begin = System.currentTimeMillis();
-//        Sort.quickSort(arr,0,arr.length-1);    //   1679
-//        System.out.println("一共用了" + (System.currentTimeMillis() - begin) + "毫秒");
+        int[] arr = getRandomArray(10000000);
+        long begin = System.currentTimeMillis();
+        Sort.quickSort(arr,0,arr.length-1);    //   1679
+        System.out.println("一共用了" + (System.currentTimeMillis() - begin) + "毫秒");
     }
     @Test
     void testShell(){
