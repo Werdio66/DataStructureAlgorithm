@@ -19,6 +19,9 @@ public class BinaryTreeDemo {
         binaryTree.midOnder(node1);
         System.out.println("---------------------------");
         binaryTree.lastOnder(node1);
+
+        binaryTree.prevOnderSerach(node1, 4);
+        binaryTree.midOnderSerach(node1, 4);
     }
     static class BinaryTree{
 
@@ -28,12 +31,36 @@ public class BinaryTreeDemo {
                 root.prevOnder(root);
         }
 
+        // 前序遍历
+        public void prevOnderSerach(TreeNode root,int id){
+            TreeNode node = null;
+            if (root != null) {
+                node = root.prevOnderSerach(root, id);
+            }
+            if (node == null){
+                System.out.println("没有找到id为" + id + "员工");
+            }
+            else
+                System.out.println(node.id + "  " + node.name);
+        }
         // 中序遍历
         public void midOnder(TreeNode root){
             if (root != null)
                 root.midOnder(root);
         }
 
+        // 前序遍历
+        public void midOnderSerach(TreeNode root,int id){
+            TreeNode node = null;
+            if (root != null) {
+                node = root.midOnderSerach(root, id);
+            }
+            if (node == null){
+                System.out.println("没有找到id为" + id + "员工");
+            }
+            else
+                System.out.println(node.id + "  " + node.name);
+        }
         // 后序遍历
         public void lastOnder(TreeNode root){
             if (root != null)
@@ -55,6 +82,25 @@ public class BinaryTreeDemo {
                  prevOnder(node.rightNode);
          }
 
+         // 前序遍历
+         public TreeNode prevOnderSerach(TreeNode node, int id){
+             // 如果找到就返回
+             if (id == node.id)
+                 return node;
+             else {
+                 // 用来接收当前遍历结果
+                 TreeNode node1 = null;
+                 if (node.leftNode != null)
+                     node1 = prevOnderSerach(node.leftNode,id);
+                 if (node1 != null)     // 遍历左子树的时候已经找到了，直接返回
+                     return node1;
+                 if (node.rightNode != null)    // 没有找到遍历右子树
+                     node1 =  prevOnderSerach(node.rightNode,id);
+                 // 不论找没找到，最后都需返回结点
+                 return node1;
+             }
+         }
+
          // 中序遍历
          public void midOnder(TreeNode node){
              if (node.leftNode != null) {
@@ -65,6 +111,27 @@ public class BinaryTreeDemo {
                  midOnder(node.rightNode);
          }
 
+         // 前序遍历
+         public TreeNode midOnderSerach(TreeNode node, int id){
+             // 用来接收当前遍历结果
+             TreeNode node1 = null;
+             if (node.leftNode != null)
+                 node1 = midOnderSerach(node.leftNode,id);
+
+             if (node1 != null)     // 遍历左子树的时候已经找到了，直接返回
+                 return node1;
+
+             // 如果没有找到就和当前结点比较，相等就返回
+             if (id == node.id) {
+                 return node;
+             }
+
+             if (node.rightNode != null)    // 没有找到遍历右子树
+                 node1 =  midOnderSerach(node.rightNode,id);
+             // 不论找没找到，最后都需返回结点
+             return node1;
+
+         }
          // 后序遍历
          public void lastOnder(TreeNode node){
              if (node.leftNode != null) {
