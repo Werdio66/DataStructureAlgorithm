@@ -10,6 +10,7 @@ public class BinaryTreeDemo {
         TreeNode node3 = new TreeNode(3,"火男");
         TreeNode node4 = new TreeNode(4,"亚索");
 
+        binaryTree.setRoot(node1);
         node1.setLeftNode(node2);
         node1.setRightNode(node3);
         node3.setLeftNode(node4);
@@ -21,9 +22,25 @@ public class BinaryTreeDemo {
         binaryTree.lastOnder(node1);
 
         binaryTree.prevOnderSerach(node1, 4);
-        binaryTree.midOnderSerach(node1, 4);
+        binaryTree.midOnderSerach(node1, 5);
+        binaryTree.deleteNode(4);
+        binaryTree.prevOnder(node1);
     }
     static class BinaryTree{
+
+        public void setRoot(TreeNode root) {
+            this.root = root;
+        }
+
+        private TreeNode root;
+
+        public void deleteNode(int id){
+            if (root.id == id){
+                root = null;
+            }else {
+                root.deleteNode(id);
+            }
+        }
 
         // 前序遍历
         public void prevOnder(TreeNode root){
@@ -118,8 +135,8 @@ public class BinaryTreeDemo {
              if (node.leftNode != null)
                  node1 = midOnderSerach(node.leftNode,id);
 
-             if (node1 != null)     // 遍历左子树的时候已经找到了，直接返回
-                 return node1;
+//             if (node1 != null)     // 遍历左子树的时候已经找到了，直接返回
+//                 return node1;
 
              // 如果没有找到就和当前结点比较，相等就返回
              if (id == node.id) {
@@ -131,6 +148,24 @@ public class BinaryTreeDemo {
              // 不论找没找到，最后都需返回结点
              return node1;
 
+         }
+
+         public void deleteNode(int id){
+             if (this.leftNode != null && this.leftNode.id == id){
+                 this.leftNode = null;
+                 return;
+             }
+
+             if (this.rightNode != null && this.rightNode.id == id){
+                 this.rightNode = null;
+                 return;
+             }
+
+             if (this.leftNode != null)
+                 this.leftNode.deleteNode(id);
+
+             if (this.rightNode != null)
+                 this.rightNode.deleteNode(id);
          }
          // 后序遍历
          public void lastOnder(TreeNode node){
