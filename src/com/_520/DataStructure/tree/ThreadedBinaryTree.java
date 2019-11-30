@@ -94,9 +94,9 @@ public class ThreadedBinaryTree {
                 node.setLeftNode(prev);
                 node.setLeftType(1);
             }
-            if (prev != null && prev.rightNode == null){
+            if (prev != null && prev.rightNode == null && node.rightNode != null){
                 // 将右结点指向后继结点
-//                prev.setRightNode(node);
+                prev.setRightNode(node.rightNode);
                 prev.setRightType(1);
             }
             // 指向当前结点

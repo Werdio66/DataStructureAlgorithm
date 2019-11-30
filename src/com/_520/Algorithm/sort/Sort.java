@@ -282,5 +282,34 @@ public class Sort {
         }
     }
 
+    public static void heapSort(int[] arr){
 
+    }
+
+    /**
+     * 调整数组为大顶堆或者小顶堆
+     * @param arr       要调整的数组
+     * @param i         调整的非叶子节点
+     * @param length    数组长度
+     */
+    private static void adjustSort(int[] arr,int i,int length){
+        // 记录当前结点的值
+        int value = arr[i];
+
+        for (int j = 2 * i + 1; j < arr.length; j = 2 * j + 1) {
+            if (j + 1 < arr.length && arr[j] > arr[j + 1]){
+                j++;
+            }
+
+            if (arr[j] > value){
+                arr[i] = arr[j];
+            }else {
+                break;
+            }
+        }
+
+        arr[i] = value;
+
+
+    }
 }
