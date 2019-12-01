@@ -50,7 +50,8 @@ public class HuffmanCode {
                 string = stringBuilder.substring(i);
             }
             // 将这八个字符串转化为二进制对应的十进制数（除了第一位符号位） (byte)Integer.parseInt(string,2)
-            // 10101000（补码）要转换为对应的原码（11011000） =  -88
+            // 负数在计算机中是以补码表示的 10101000（补码）要转换为对应的原码（11011000） =  -88
+            // byte 强制转换是把数字转换为字节类型
 //            System.out.println(string + "--" + (byte)Integer.parseInt(string,2));
             hafumanCodesBytes[index] = (byte) Integer.parseInt(string,2);
             index++;
