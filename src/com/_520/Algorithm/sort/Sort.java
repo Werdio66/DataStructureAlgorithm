@@ -283,7 +283,25 @@ public class Sort {
     }
 
     public static void heapSort(int[] arr){
+        // 调整数组为大顶堆
+        for (int i = arr.length / 2 - 1; i >= 0; i--) {
+            // 从最底层的非叶子结点开始调整
+            adjustSort(arr,i,arr.length);
+        }
 
+
+//        System.out.println("最初调整：" + Arrays.toString(arr));
+        // 将堆顶元素和最后一个元素交换
+//        swap(arr,arr.length - 1,0);
+
+        for (int j = arr.length - 1; j >= 0; j--) {
+            swap(arr,j,0);
+//            System.out.println("第" + count++ + "次交换后：" + Arrays.toString(arr));
+            // 调整剩余的数
+            adjustSort(arr,0,j);
+//            System.out.println("第" + count1++ + "次调整后：" + Arrays.toString(arr));
+
+        }
     }
 
     /**
@@ -296,18 +314,22 @@ public class Sort {
         // 记录当前结点的值
         int value = arr[i];
 
-        for (int j = 2 * i + 1; j < arr.length; j = 2 * j + 1) {
-            if (j + 1 < arr.length && arr[j] > arr[j + 1]){
+        // 遍历左结点
+        for (int j = 2 * i + 1; j < length; j = 2 * j + 1) {
+            // 如果左结点小于右结点，就指向右结点
+            if (j + 1 < length && arr[j] < arr[j + 1]) {
                 j++;
             }
-
-            if (arr[j] > value){
+            // 如果当前结点大于父结点，就把当前结点的值赋给父结点
+            if (arr[j] > value) {
                 arr[i] = arr[j];
-            }else {
+                i = j;      // i 指向当前结点
+            } else {
+                // 不需要交换就返回
                 break;
             }
         }
-
+        // 把父结点的值给当前结点
         arr[i] = value;
 
 

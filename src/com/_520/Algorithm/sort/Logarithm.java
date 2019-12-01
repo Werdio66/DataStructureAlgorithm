@@ -42,7 +42,8 @@ public class Logarithm {
 //        Sort.shellSort(arr);              // true
 //        Sort.quickSort(arr,0,arr.length - 1);
 //        Sort.mergeSort(arr,0,arr.length - 1,new int[arr.length]);
-        Sort.radixSort(arr);
+//        Sort.radixSort(arr);
+        Sort.heapSort(arr);
         // 挨个检查
         for (int i = 0; i < arr.length; i++) {
             if (arr[i] != copyArr[i])   // 有一个不相等，返回false

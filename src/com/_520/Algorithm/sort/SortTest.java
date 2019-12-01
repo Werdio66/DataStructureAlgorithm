@@ -21,8 +21,21 @@ public class SortTest {
         return arr;
     }
 
-    private static int[] array = new int[]{46,566,8,22,79};
+    private static int[] array = new int[]{46,566,8,22,79,12,34,76,34,11};
 
+    @Test
+    void testheap(){
+//        System.out.println("排序前");
+//        System.out.println(Arrays.toString(array));
+//        Sort.heapSort(array);
+//        System.out.println("排序后");
+//        System.out.println(Arrays.toString(array));
+
+        int[] arr = getRandomArray(10000000);
+        long begin = System.currentTimeMillis();
+        Sort.heapSort(arr);        // 3254
+        System.out.println("一共用了" + (System.currentTimeMillis() - begin) + "毫秒");
+    }
     @Test
     void testRadix(){
 //        System.out.println("排序前");
