@@ -8,20 +8,92 @@ public class HuffmanCode {
 
     public static void main(String[] args) {
         String str = "i like like like java do you like a java";
-        System.out.println(str);
-        // 得到每个字符的个数
-        Map<Byte, Integer> bytes = getBytes(str);
-        System.out.println(bytes);
-        // 生成对应的哈夫曼树
-        Node root = creatHaffmanTree(bytes);
-        //root.prevOrder();
-        // 得到每个字符的唯一编码
-        getCodes(root,"",new StringBuilder());
-        System.out.println(hafumanCodes);
-        // 将原来的字符串转化为byte数组
-        System.out.println(Arrays.toString(hafumanCodesBytes(str, hafumanCodes)));
+        byte[] bytes = hafumanCodesBytes(str);
+        String string = byteToBitString(bytes);
+        deCode(string);
     }
 
+    // 解码
+
+    /**
+     * 1.根据压缩后的byte数组转换为原来的二进制码
+     * @param b     压缩后的byte数组
+     * @return      解压后的二进制数
+     */
+    private static String byteToBitString(byte[] b){
+        // 用于存放解压后的二进制编码
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i < b.length; i++) {
+            int temp = b[i];
+            if (i != b.length - 1)
+                temp |= 256;
+            // 将int类型的数字转换为对应的二进制数
+            String string = Integer.toBinaryString(temp);
+            if (i != b.length - 1){
+                // 如果不是最后一个字符就返回八位
+
+                stringBuilder.append(string.substring(string.length() - 8));
+            }else {
+                // 返回最后一个字符的二进制长度
+                stringBuilder.append(string);
+            }
+        }
+        return stringBuilder.toString();
+    }
+    // 2.根据存放字符和对应哈夫曼编码的map，返回原来的字符串
+    private static void deCode(String str){
+        System.out.println("计算的二进制码：" + str);
+        // 将二进制字符串转换为byte数组，便于遍历
+//        byte[] bytes = str.getBytes();
+        // 存放指定编码对应的字符
+        Map<String,Byte> map = new HashMap<>();
+        // 将原来存放指定字符对应的编码逆转
+        for (Map.Entry<Byte,String> entry:hafumanCodes.entrySet()
+             ) {
+            map.put(entry.getValue(),entry.getKey());
+        }
+        System.out.println("指定编码对应的字符" + map);
+        StringBuilder stringBuilder = new StringBuilder();
+        int index = 0;
+        // 遍历byte数组
+        for (int i = 0; i < str.length(); ) {
+
+            String key = null;
+            while (map.get(key) == null && index < str.length()){
+                index++;
+                key = str.substring(i, index);
+//                System.out.print("key ---> " + key + " ");
+            }
+//            System.out.println();
+            byte by = map.get(key);
+//            System.out.println(by + " ---> " + (char) by + " ");
+            stringBuilder.append((char)by);
+            i = index;
+        }
+        System.out.println(stringBuilder.toString());
+    }
+    /**
+     *  封装了字符串的压缩过程
+     * @param str       要压缩的字符串
+     * @return         压缩后的byte数组
+     */
+    private static byte[] hafumanCodesBytes(String str){
+        // 得到每个字符的个数
+        Map<Byte, Integer> bytes = getBytes(str);
+        // 生成对应的哈夫曼树
+        Node root = creatHaffmanTree(bytes);
+        // 得到每个字符的唯一编码，存入hafumanCodes中
+        getCodes(root,"",new StringBuilder());
+
+        return hafumanCodesBytes(str,hafumanCodes);
+    }
+
+    /**
+     *  将字符串转换为byte数组
+     * @param str           转换的字符串
+     * @param map           存放每种字符对应的哈夫曼码
+     * @return              byte数组
+     */
     private static byte[] hafumanCodesBytes(String str, Map<Byte, String> map) {
         // 得到字符串对应的字节数组
         byte[] bytes = str.getBytes();
@@ -33,6 +105,7 @@ public class HuffmanCode {
             // 把byte数组中的字符拼接成二进制码
             stringBuilder.append(map.get(key));
         }
+        System.out.println("原来的二进制码：" + stringBuilder.toString());
         // 将字符串的二进制码转换为byte数组
         // 1.计算字符串的长度
         int len = (stringBuilder.length() + 7) / 8;
