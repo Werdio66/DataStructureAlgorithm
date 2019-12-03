@@ -3,7 +3,7 @@ package com._520.DataStructure.tree.avl;
 public class AVLTreeDemo {
 
     public static void main(String[] args) {
-        int[] arr = {10, 12, 8, 9, 7, 6};
+        int[] arr = {2,1,6,5,7,3};
         AVLTree avlTree = new AVLTree();
         for (int i = 0; i < arr.length; i++) {
             avlTree.add(new Node(arr[i]));
@@ -12,10 +12,15 @@ public class AVLTreeDemo {
         System.out.println(avlTree.root.getHeight());
         System.out.println(avlTree.root.left.getHeight());
         System.out.println(avlTree.root.right.getHeight());
+        System.out.println(avlTree.getRoot());
     }
     // 平衡二叉树
     static class AVLTree {
         Node root;
+
+        public Node getRoot() {
+            return root;
+        }
 
         public Node serach(int value) {
             if (root == null)
@@ -183,6 +188,16 @@ public class AVLTreeDemo {
                     this.right == null ? 0 : this.right.getHeight()) + 1;
         }
 
+        // 返回当前结点的右子树高度
+        public int getRightHeight(){
+            return this.right == null ? 0 : this.right.getHeight();
+        }
+
+        // 左子树
+        public int getLeftHeight(){
+            return this.left == null ? 0 : this.left.getHeight();
+        }
+
         // 查找要删除结点的父结点
         public Node serachParent(int value){
             // 如果当前结点的左结点或者右结点是要删除的值，当前结点就是删除结点的父结点
@@ -244,11 +259,18 @@ public class AVLTreeDemo {
             }
 
             // 当右子树的高度 - 左子树的高度 > 1，就左旋
-            if (this.right != null && this.left != null && right.getHeight() - left.getHeight() > 1){
+            if (this.getRightHeight() - this.getLeftHeight() > 1){
+                if (right != null && right.getLeftHeight() > right.getRightHeight())
+                    right.rightRotate();
+
                 leftRotate();
+
             }
             // 当左子树的高度 - 右子树的高度 > 1，就右旋
-            if (this.right != null && this.left != null && this.left.getHeight() - this.right.getHeight() > 1){
+            if (this.getLeftHeight() - this.getRightHeight() > 1) {
+                //
+                if (left != null && left.getRightHeight() > left.getLeftHeight())
+                    left.leftRotate();
                 rightRotate();
             }
         }
