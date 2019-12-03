@@ -82,20 +82,32 @@ public class BinarySortTreeDemo {
                 targetNode.value = findMinValueInRightNode(targetNode.right);
 
             }else { // 删除的结点有一个子结点
+
                 if (targetNode.left != null) {   // 要删除的结点有一个左子结点
-                    // 要删除的结点是它的父结点的左结点
-                    if (parentNode.left.value == targetNode.value) {
-                        parentNode.left = targetNode.left;
-                    }else { // 要删除结点的是它的父结点的右子结点
-                        parentNode.right = targetNode.left;
+                    // 说明当前要删除的结点不是根结点
+                    if (parentNode != null){
+                        // 要删除的结点是它的父结点的左结点
+                        if (parentNode.left.value == targetNode.value) {
+                            parentNode.left = targetNode.left;
+                        }else { // 要删除结点的是它的父结点的右子结点
+                            parentNode.right = targetNode.left;
+                        }
+                    }else { // 说明当前要删除的结点是根结点
+                        root = targetNode.left;
                     }
+
                 }else {     // 删除的结点有一个右子结点
-                    // 要删除的结点是它的父结点的左结点
-                    if (parentNode.left.value == targetNode.value) {
-                        parentNode.left = targetNode.right;
-                    }else { // 要删除结点的是它的父结点的右子结点
-                        parentNode.right = targetNode.right;
+                    if (parentNode != null){
+                        // 要删除的结点是它的父结点的左结点
+                        if (parentNode.left.value == targetNode.value) {
+                            parentNode.left = targetNode.right;
+                        }else { // 要删除结点的是它的父结点的右子结点
+                            parentNode.right = targetNode.right;
+                        }
+                    }else {
+                        root = targetNode.right;
                     }
+
                 }
             }
         }
