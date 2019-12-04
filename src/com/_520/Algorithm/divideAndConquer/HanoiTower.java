@@ -3,7 +3,7 @@ package com._520.Algorithm.divideAndConquer;
 public class HanoiTower {
     private static int count = 0;
     public static void main(String[] args) {
-        hanoiTower(5,'A','B','C');
+        hanoiTower(3,'A','B','C');
         System.out.println(count);
     }
 
