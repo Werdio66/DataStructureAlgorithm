@@ -54,10 +54,24 @@ public class JobScheduling {
         queue.print();
     }
 
+    /**
+     *  高响应比优先调度
+     */
+    private static void HRRN(){
+        PcbQueue queue = new PcbQueue();
+        allPcb.sort(new ResponseRatio());
+        queue.enQueue();
+        while (!isFinish()){
+            queue.deQueue();
+
+            queue.enQueue();
+        }
+        queue.print();
+    }
     public static void main(String[] args) {
        init();
-//       FCFS();
-        SJF();
+       FCFS();
+//        SJF();
     }
 
     private static boolean isFinish(){
@@ -94,10 +108,18 @@ public class JobScheduling {
             if (enterPcb.size() == 0){
                 return;
             }
+//            for (int i = 0; i < allPcb.size(); i++) {
+//                // 计算等待时间
+//                allPcb.get(i).waitTime = nowTime - allPcb.get(i).arrivedTime > 0 ? nowTime - allPcb.get(i).arrivedTime : 0;
+//                // 计算响应比
+//                allPcb.get(i).ratio = (allPcb.get(i).waitTime + allPcb.get(i).doTime) / allPcb.get(i).doTime;
+//                allPcb.sort(new ResponseRatio());
+//                System.out.println(allPcb.get(i).waitTime);
+//            }
             nowPrecess = enterPcb.remove(0);
             // 计算开始时间，即为上一个进程的结束时间
             nowPrecess.startTime = nowTime;
-            // 计算结束时间，该进程开始时间+服务时间
+        // 计算结束时间，该进程开始时间+服务时间
             nowPrecess.finshTime = nowPrecess.startTime + nowPrecess.doTime;
             // 计算周转时间
             nowPrecess.roundTime = nowPrecess.finshTime - nowPrecess.arrivedTime;
@@ -109,17 +131,20 @@ public class JobScheduling {
             dealPcb.add(nowPrecess);
         }
         public void print(){
-            System.out.println("进程名 到达时间  服务时间   开始时间  完成时间  周转时间  带权周转时间");
+            System.out.println("进程名 到达时间  服务时间   开始时间  完成时间  周转时间  带权周转时间  响应比");
             for (PCB pcb:dealPcb
                  ) {
                 System.out.println(pcb.name + "        " + pcb.arrivedTime + "         " + pcb.doTime + "        " +
                         pcb.startTime + "        " + pcb.finshTime + "         " +
-                        pcb.roundTime + "          " + pcb.aveRoundTime);
+                        pcb.roundTime + "          " + pcb.aveRoundTime +"       " + pcb.ratio);
             }
         }
     }
 }
 
+/**
+ *  先来先服务的比较器
+ */
 class ArrivedSort implements Comparator<PCB>{
     @Override
     public int compare(PCB o1, PCB o2) {
@@ -130,11 +155,35 @@ class ArrivedSort implements Comparator<PCB>{
     }
 }
 
+/**
+ *  短作业的比较器
+ */
 class ServiceSort implements Comparator<PCB>{
 
     @Override
     public int compare(PCB o1, PCB o2) {
 
         return o1.doTime - o2.doTime;
+    }
+}
+
+/**
+ *  响应比的比较器
+ */
+class ResponseRatio implements Comparator<PCB>{
+
+    @Override
+    public int compare(PCB o1, PCB o2) {
+//        if (o1.waitTime == o2.waitTime){
+//            return o1.doTime - o2.doTime;
+//        }
+//        if (o1.doTime == o2.doTime)
+//            return o2.waitTime - o1.waitTime;
+        if (o1.ratio - o2.ratio > 0)
+            return 1;
+       else if (o1.ratio - o2.ratio == 0)
+            return 0;
+        else
+            return -1;
     }
 }

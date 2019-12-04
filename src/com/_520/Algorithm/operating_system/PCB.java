@@ -13,6 +13,7 @@ public class PCB implements Comparable<PCB> {
     public int roundTime;               // 轮转时间
     public double aveRoundTime;         // 带权轮转时间
     public int waitTime;                // 等待时间
+    public double ratio;                   // 响应比
 
     public PCB(String name, int arrivedTime, int doTime) {
         this.name = name;
