@@ -12,9 +12,10 @@ public class BinarySerach {
         int[] arr = {1,3,4,5,6,6,6,6,6,7,8,9};
         System.out.println(binarySerach1(arr, 0, arr.length - 1, 1));
         binarySerach2(arr,0,arr.length - 1,6).forEach(System.out::println);
+        System.out.println("index = " + binatySerach(arr, 9));
     }
     /**
-     * 二分查找一个下标
+     * 二分查找一个下标，递归
      *
      * @param arr           查找的数组
      * @param left          左索引
@@ -35,6 +36,27 @@ public class BinarySerach {
             return mid;
     }
 
+    /**
+     *  二分查找，非递归
+     * @param arr       数组
+     * @param target    查找的值
+     * @return          下标，-1
+     */
+    private static int binatySerach(int[] arr, int target){
+        int left = 0;
+        int right = arr.length - 1;
+        while (left <= right){
+            int mid = (left + right) / 2;
+            if (arr[mid] == target)
+                return mid;
+            else if (arr[mid] > target)
+                right = mid - 1;
+            else
+                left = mid + 1;
+        }
+
+        return -1;
+    }
     /**
      *  二分查找所有相同元素的下标
      * @param arr           数组
