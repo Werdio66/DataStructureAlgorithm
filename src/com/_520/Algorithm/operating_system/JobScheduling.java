@@ -16,7 +16,7 @@ public class JobScheduling {
      */
     private static void init(){
         PCB pcb1 = new PCB("a",0,5);
-        PCB pcb2 = new PCB("b",1,4);
+        PCB pcb2 = new PCB("b",1,9);
         PCB pcb3 = new PCB("c",3,3);
         PCB pcb4 = new PCB("d",4,8);
         PCB pcb5 = new PCB("e",6,2);
@@ -45,11 +45,13 @@ public class JobScheduling {
      */
     private static void SJF(){
         PcbQueue queue = new PcbQueue();
-        allPcb.sort(new ServiceSort());
+
         queue.enQueue();
         while (!isFinish()){
             queue.deQueue();
             queue.enQueue();
+            if (enterPcb.size() > 0)
+                enterPcb.sort(new ServiceSort());
         }
         queue.print();
     }
@@ -90,8 +92,8 @@ public class JobScheduling {
 //        FCFS();
 //        System.out.println("短作业");
 //        SJF();
-//        System.out.println("时间片轮转");
-        RR(2);
+        System.out.println("时间片轮转");
+        RR(4);
     }
 
     private static boolean isFinish(){
@@ -105,15 +107,17 @@ public class JobScheduling {
         private int nowTime = 0;
         // 当前执行的进程
         private PCB nowPrecess = null;
+        private int start = 0;
+        private Map<String,Integer> map = new HashMap<>();
         // 入队，
         public void enQueue(){
-            while (count < allPcb.size() && enterPcb.size() == 0){
+            while (count < allPcb.size()){
 
-                while (allPcb.get(count).arrivedTime > nowTime){
+                while (allPcb.get(count).arrivedTime > nowTime && enterPcb.size() == 0){
                     nowTime++;
                 }
 
-                // 将符合数据的额所有pcb加入enterPcb中
+                // 将符合数据的所有pcb加入enterPcb中
                 if (allPcb.get(count).arrivedTime <= nowTime){
                     enterPcb.add(allPcb.get(count));
                     count++;
@@ -129,24 +133,46 @@ public class JobScheduling {
             if (enterPcb.size() == 0){
                 return;
             }
+            int lastTime = 0;
+            // 取出等待队列的第一个
             nowPrecess = enterPcb.remove(0);
-            nowPrecess.timeSlice -= timeSlice;
-            if (nowPrecess.timeSlice <= 0){
 
+            // 计算开始时间
+            if (!map.containsKey(nowPrecess.name)){
+                if (nowPrecess.timeSlice - timeSlice < 0)
+                    map.put(nowPrecess.name,start);
+                else
+                    map.put(nowPrecess.name,nowTime);
+
+            }
+
+
+            // 让当前进程的服务时间减少时间片的时间
+            nowPrecess.timeSlice -= timeSlice;
+            nowTime += timeSlice;
+
+
+            // 在时间片时间内就完成了
+            if (nowPrecess.timeSlice < 0){
+                // 当前时间就是当前时间减去多使用的时间 nowPrecess.timeSlice
+                nowTime += nowPrecess.timeSlice;
+                // 计算最后消耗的时间
+
+            }
+            start = nowTime;
+            if (nowPrecess.timeSlice <= 0){
                 // 计算开始时间
-                nowPrecess.startTime = nowPrecess.arrivedTime;
+                nowPrecess.startTime = map.get(nowPrecess.name);
                 // 计算结束时间
-                nowPrecess.finshTime = nowTime + timeSlice;
+                nowPrecess.finshTime = nowTime;
                 // 计算周转时间
                 nowPrecess.roundTime = nowPrecess.finshTime - nowPrecess.arrivedTime;
                 // 计算平均周转时间
                 nowPrecess.aveRoundTime = (double) nowPrecess.roundTime / nowPrecess.doTime;
-                // 获得结束时间，即当前时间，方便判断剩下的进程是否已到达
-
+                // 更新当前时间
                 //经处理过数据后加入dealPcb容器
                 dealPcb.add(nowPrecess);
             }else {
-                nowTime += timeSlice;
                 enterPcb.add(nowPrecess);
             }
 
@@ -166,9 +192,10 @@ public class JobScheduling {
 //                System.out.println(allPcb.get(i).waitTime);
 //            }
             nowPrecess = enterPcb.remove(0);
+
             // 计算开始时间，即为上一个进程的结束时间
             nowPrecess.startTime = nowTime;
-        // 计算结束时间，该进程开始时间+服务时间
+           // 计算结束时间，该进程开始时间+服务时间
             nowPrecess.finshTime = nowPrecess.startTime + nowPrecess.doTime;
             // 计算周转时间
             nowPrecess.roundTime = nowPrecess.finshTime - nowPrecess.arrivedTime;
@@ -199,10 +226,7 @@ public class JobScheduling {
 class ArrivedSort implements Comparator<PCB>{
     @Override
     public int compare(PCB o1, PCB o2) {
-        if (o1.arrivedTime == o2.arrivedTime)
-            return o1.doTime - o2.doTime;
-        else
-            return o1.arrivedTime - o2.arrivedTime;
+            return o1.arrivedTime == o2.arrivedTime ? o1.doTime - o2.doTime : o1.arrivedTime - o2.arrivedTime;
     }
 }
 
@@ -213,8 +237,7 @@ class ServiceSort implements Comparator<PCB>{
 
     @Override
     public int compare(PCB o1, PCB o2) {
-
-        return o1.doTime - o2.doTime;
+        return o1.doTime == o2.doTime ? o1.arrivedTime - o2.arrivedTime : o1.doTime - o2.doTime;
     }
 }
 
