@@ -16,10 +16,10 @@ public class JobScheduling {
      */
     private static void init(){
         PCB pcb1 = new PCB("a",0,5);
-        PCB pcb2 = new PCB("b",8,3);
-        PCB pcb3 = new PCB("c",6,6);
-        PCB pcb4 = new PCB("d",8,2);
-        PCB pcb5 = new PCB("e",9,1);
+        PCB pcb2 = new PCB("b",1,4);
+        PCB pcb3 = new PCB("c",3,3);
+        PCB pcb4 = new PCB("d",4,8);
+        PCB pcb5 = new PCB("e",6,2);
         allPcb.add(pcb1);
         allPcb.add(pcb2);
         allPcb.add(pcb3);
@@ -68,10 +68,30 @@ public class JobScheduling {
         }
         queue.print();
     }
+
+    /**
+     * 时间片轮转
+     * @param timeSlice     时间片
+     */
+    private static void RR(int timeSlice){
+        PcbQueue queue = new PcbQueue();
+        queue.enQueue();
+        while (!isFinish()){
+            queue.deQueue(timeSlice);
+            if (enterPcb.size() < allPcb.size())
+                queue.enQueue();
+        }
+        queue.print();
+
+    }
     public static void main(String[] args) {
-       init();
-       FCFS();
+        init();
+//        System.out.println("先到先服务");
+//        FCFS();
+//        System.out.println("短作业");
 //        SJF();
+//        System.out.println("时间片轮转");
+        RR(2);
     }
 
     private static boolean isFinish(){
@@ -101,6 +121,35 @@ public class JobScheduling {
                     break;
                 }
             }
+        }
+
+        // 出队，为当前进程设置相关的字段值
+        public void deQueue(int timeSlice){
+            // 当前进程为第一个进入队列的
+            if (enterPcb.size() == 0){
+                return;
+            }
+            nowPrecess = enterPcb.remove(0);
+            nowPrecess.timeSlice -= timeSlice;
+            if (nowPrecess.timeSlice <= 0){
+
+                // 计算开始时间
+                nowPrecess.startTime = nowPrecess.arrivedTime;
+                // 计算结束时间
+                nowPrecess.finshTime = nowTime + timeSlice;
+                // 计算周转时间
+                nowPrecess.roundTime = nowPrecess.finshTime - nowPrecess.arrivedTime;
+                // 计算平均周转时间
+                nowPrecess.aveRoundTime = (double) nowPrecess.roundTime / nowPrecess.doTime;
+                // 获得结束时间，即当前时间，方便判断剩下的进程是否已到达
+
+                //经处理过数据后加入dealPcb容器
+                dealPcb.add(nowPrecess);
+            }else {
+                nowTime += timeSlice;
+                enterPcb.add(nowPrecess);
+            }
+
         }
         // 出队，为当前进程设置相关的字段值
         public void deQueue(){
@@ -138,6 +187,8 @@ public class JobScheduling {
                         pcb.startTime + "        " + pcb.finshTime + "         " +
                         pcb.roundTime + "          " + pcb.aveRoundTime +"       " + pcb.ratio);
             }
+
+            dealPcb.clear();
         }
     }
 }
