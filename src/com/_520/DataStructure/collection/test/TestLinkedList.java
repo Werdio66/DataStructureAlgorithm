@@ -1,6 +1,6 @@
 package com._520.DataStructure.collection.test;
 
-import com._520.DataStructure.collection.list.MyLinkedList;
+import com._520.collection.list.MyLinkedList;
 
 public class TestLinkedList {
     public static void main(String[] args) {

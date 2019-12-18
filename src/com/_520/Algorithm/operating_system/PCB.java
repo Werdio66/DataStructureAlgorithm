@@ -1,6 +1,7 @@
 package com._520.Algorithm.operating_system;
 
 
+import java.util.Random;
 
 public class PCB implements Comparable<PCB> {
     public String name;                 // 进程标识符
@@ -20,6 +21,7 @@ public class PCB implements Comparable<PCB> {
         this.arrivedTime = arrivedTime;
         this.doTime = doTime;
         this.timeSlice = doTime;
+        this.priority = new Random().nextInt(8);
     }
 
     @Override
@@ -28,6 +30,8 @@ public class PCB implements Comparable<PCB> {
                 "name='" + name + '\'' +
                 ", arrivedTime=" + arrivedTime +
                 ", doTime=" + doTime +
+                ", startTime=" + startTime +
+                ", priority=" + priority +
                 '}';
     }
 

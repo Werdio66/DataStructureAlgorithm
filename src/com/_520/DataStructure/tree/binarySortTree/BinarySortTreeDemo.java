@@ -145,13 +145,7 @@ public class BinarySortTreeDemo {
             this.value = value;
         }
 
-        // 删除指定值的结点
-        public void delete(int value) {
-            // 当前结点就是要删除的结点
-            if (this.value == value){
 
-            }
-        }
 
         // 查找要删除结点的父结点
         public Node serachParent(int value){

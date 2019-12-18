@@ -116,6 +116,12 @@ public class SortTest {
         long begin = System.currentTimeMillis();
         Sort.bubbleSort(arr);       // 22408
         System.out.println("一共用了" + (System.currentTimeMillis() - begin) + "毫秒");
+//        int[] arr = {6,3,7,2,5};
+//        System.out.println("排序前");
+//        System.out.println(Arrays.toString(arr));
+//        Sort.bubbleSort(arr);
+//        System.out.println("排序后");
+//        System.out.println(Arrays.toString(arr));
     }
 
     @Test

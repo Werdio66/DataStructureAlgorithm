@@ -1,6 +1,6 @@
 package com._520.DataStructure.collection.student;
 
-import com._520.DataStructure.collection.list.MyArrayList;
+import com._520.collection.list.MyArrayList;
 
 public class StudentTest {
     public static void main(String[] args) {

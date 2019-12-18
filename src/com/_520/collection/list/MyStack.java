@@ -1,4 +1,4 @@
-package com._520.DataStructure.collection.list;
+package com._520.collection.list;
 
 public class MyStack extends MyLinkedList {
 
