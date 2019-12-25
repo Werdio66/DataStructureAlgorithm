@@ -35,18 +35,6 @@ public class Process {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int[] getMax() {
-        return max;
-    }
-
-    public void setMax(int[] max) {
-        this.max = max;
-    }
-
     public int[] getAllocation() {
         return allocation;
     }
@@ -71,17 +59,11 @@ public class Process {
         this.work = work;
     }
 
-    public int[] getWorkAndAllocation() {
-        return workAndAllocation;
-    }
 
     public void setWorkAndAllocation(int[] workAndAllocation) {
         this.workAndAllocation = workAndAllocation;
     }
 
-    public boolean isFinish() {
-        return isFinish;
-    }
 
     public void setFinish(boolean finish) {
         isFinish = finish;
